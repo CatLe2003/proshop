@@ -9,6 +9,7 @@ import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } 
 import Home from './views/Home';
 import ProductDetail from './views/ProductDetail';
 import Cart from './views/Cart.jsx';
+import Login from './views/Login.jsx';
 import { Provider } from 'react-redux';
 import store from './store.js';
 
@@ -18,6 +19,7 @@ const router =  createBrowserRouter(
       <Route index path='/' element={<Home/>}/>
       <Route path='/product/:id' element={<ProductDetail/>}/>
       <Route path='/cart' element={<Cart/>}/>
+      <Route path='/login' element={<Login/>}/>
     </Route>
   )
 )
