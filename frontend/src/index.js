@@ -11,8 +11,11 @@ import ProductDetail from './views/ProductDetail';
 import Cart from './views/Cart.jsx';
 import Login from './views/Login.jsx';
 import Register from './views/Register.jsx';
+import Shipping from './views/Shipping.jsx';
+import Payment from './views/Payment.jsx';
 import { Provider } from 'react-redux';
 import store from './store.js';
+import PrivateRoute from './components/PrivateRoute.jsx';
 
 const router =  createBrowserRouter(
   createRoutesFromElements(
@@ -22,6 +25,10 @@ const router =  createBrowserRouter(
       <Route path='/cart' element={<Cart/>}/>
       <Route path='/login' element={<Login/>}/>
       <Route path='/register' element={<Register/>}/>
+      <Route path='' element={<PrivateRoute/>}>
+        <Route path='/shipping' element={<Shipping/>}/>
+        <Route path='/payment' element={<Payment/>}/>
+      </Route>
     </Route>
   )
 )
