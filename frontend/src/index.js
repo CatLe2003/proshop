@@ -13,6 +13,7 @@ import Login from './views/Login.jsx';
 import Register from './views/Register.jsx';
 import Shipping from './views/Shipping.jsx';
 import Payment from './views/Payment.jsx';
+import PlaceOrder from './views/PlaceOrder.jsx';
 import { Provider } from 'react-redux';
 import store from './store.js';
 import PrivateRoute from './components/PrivateRoute.jsx';
@@ -28,6 +29,7 @@ const router =  createBrowserRouter(
       <Route path='' element={<PrivateRoute/>}>
         <Route path='/shipping' element={<Shipping/>}/>
         <Route path='/payment' element={<Payment/>}/>
+        <Route path='/placeorder' element={<PlaceOrder/>}/>
       </Route>
     </Route>
   )
