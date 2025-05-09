@@ -1,7 +1,7 @@
 import { LinkContainer } from 'react-router-bootstrap';
 import { Table, Button, Row, Col } from 'react-bootstrap';
 import { FaEdit, FaTrash } from 'react-icons/fa';
-import { useGetProductsQuery, useCreateNewProductMutation } from '../../slices/productApiSlice';
+import { useGetProductsQuery, useCreateNewProductMutation, useDeleteProductMutation } from '../../slices/productApiSlice';
 import Message from '../../components/Message';
 import Loader from '../../components/Loader';
 import { toast } from 'react-toastify';
@@ -11,18 +11,27 @@ const ProductList = () => {
   const { data: products, isLoading, error, refetch } = useGetProductsQuery();
 
   const [createNewProduct, { isLoading: loadingCreate }] = useCreateNewProductMutation();
+  const [deleteProduct, { isLoading: loadingDelete }] = useDeleteProductMutation();
 
   const createProductHandler = async () => {
     try {
         await createNewProduct();
         refetch();
-        toast.success('Create new product successfully')
+        toast.success('Create new product successfully');
     } catch (error) {
         toast.error (error?.data?.message || error.error);
     }
   }
-  const deleteHandler = (productId) => {
-
+  const deleteHandler = async (productId) => {
+    if (window.confirm ('Please confirm to delete the product')){
+      try {
+        await deleteProduct(productId);
+        refetch();
+        toast.success(`Delete product #${productId} successfully`)
+      } catch (error) {
+        toast.error(error?.data?.message || error.error);
+      }
+    }
   }
 
   return (
@@ -37,6 +46,7 @@ const ProductList = () => {
           </Button>
         </Col>
       </Row>
+      { loadingDelete && <Loader /> }
       { isLoading ? <Loader/> 
           : error ? <Message variant='danger'>{ error }</Message>
           :(
@@ -60,20 +70,18 @@ const ProductList = () => {
                         <td>{product.category}</td>
                         <td>{product.brand}</td>
                         <td>
-                          <LinkContainer to={`/admin/product/${product._id}`}>
+                          <LinkContainer to={`/admin/product/${product._id}/edit`}>
                             <Button variant='light' className='btn-sm m-2'>
                                 <FaEdit /> Edit
                             </Button>
                           </LinkContainer>
-                          <LinkContainer to={`/admin/product/${product._id}`}>
-                            <Button 
-                              variant='danger' 
-                              onClick={() => deleteHandler(product._id)}
-                              className='btn-sm text-white'
-                            >
-                                <FaTrash style={{ color: 'white' }} /> Delete
-                            </Button>
-                          </LinkContainer>
+                          <Button 
+                            variant='danger' 
+                            onClick={() => deleteHandler(product._id)}
+                            className='btn-sm text-white'
+                          >
+                              <FaTrash style={{ color: 'white' }} /> Delete
+                          </Button>
                         </td>
                     </tr>
                 ))}
