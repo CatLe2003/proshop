@@ -1,17 +1,30 @@
 import { LinkContainer } from 'react-router-bootstrap';
 import { Table, Button, Row, Col } from 'react-bootstrap';
 import { FaEdit, FaTrash } from 'react-icons/fa';
-import { useGetProductsQuery } from '../../slices/productApiSlice';
+import { useGetProductsQuery, useCreateNewProductMutation } from '../../slices/productApiSlice';
 import Message from '../../components/Message';
 import Loader from '../../components/Loader';
+import { toast } from 'react-toastify';
 import { MdOutlineAddCircleOutline } from "react-icons/md";
 
 const ProductList = () => {
-  const { data: products, isLoading, error } = useGetProductsQuery();
+  const { data: products, isLoading, error, refetch } = useGetProductsQuery();
 
+  const [createNewProduct, { isLoading: loadingCreate }] = useCreateNewProductMutation();
+
+  const createProductHandler = async () => {
+    try {
+        await createNewProduct();
+        refetch();
+        toast.success('Create new product successfully')
+    } catch (error) {
+        toast.error (error?.data?.message || error.error);
+    }
+  }
   const deleteHandler = (productId) => {
 
   }
+
   return (
     <>
       <Row>
@@ -19,7 +32,7 @@ const ProductList = () => {
           <h1>Products</h1>
         </Col>
         <Col className='text-end'>
-          <Button className='btn-sm m-3'>
+          <Button className='btn-sm m-3' onClick={createProductHandler} disabled={loadingCreate}>
             <MdOutlineAddCircleOutline /> Create Product
           </Button>
         </Col>
