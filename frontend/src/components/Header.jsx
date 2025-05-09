@@ -4,7 +4,7 @@ import { FaShoppingCart, FaUser } from 'react-icons/fa'
 import logo from '../assets/logo.png'
 import { LinkContainer } from 'react-router-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useLogoutMutation } from '../slices/userApiSlice';
 import { logout }  from '../slices/authSlice';
 
@@ -39,7 +39,7 @@ const Header = () => {
                 </LinkContainer>
                 <Navbar.Toggle aria-controls='basic-navbar-nav'/>
                 <Navbar.Collapse id='basic-navbar-nav'>
-                    <Nav className='ms-auto'>
+                    <Nav className='ms-auto' >
                         <LinkContainer to='/cart'>
                             <Nav.Link><FaShoppingCart/> 
                              Cart 
@@ -57,7 +57,7 @@ const Header = () => {
                                 <LinkContainer to='/profile'>
                                   <NavDropdown.Item>Profile</NavDropdown.Item>
                                 </LinkContainer>
-                                <NavDropdown.Item onClick={logoutHandler}>
+                                <NavDropdown.Item onClick={logoutHandler} style={{ marginLeft: '5px'}}>
                                     Logout
                                 </NavDropdown.Item>
                             </NavDropdown>
@@ -66,6 +66,19 @@ const Header = () => {
                             <LinkContainer to='/login'>
                                 <Nav.Link><FaUser/> Login </Nav.Link>
                             </LinkContainer>
+                        )}
+                        { userInfo && userInfo.isAdmin && (
+                            <NavDropdown title='Admin' id='adminmenu'>
+                                <LinkContainer to='/admin/order-list'>
+                                    <NavDropdown.Item> Order List </NavDropdown.Item>
+                                </LinkContainer>
+                                <LinkContainer to='/admin/user-list'>
+                                    <NavDropdown.Item> User List </NavDropdown.Item>
+                                </LinkContainer>
+                                <LinkContainer to='/admin/product-list'>
+                                    <NavDropdown.Item> Product List </NavDropdown.Item>
+                                </LinkContainer>
+                            </NavDropdown>
                         )}
                     </Nav>
                 </Navbar.Collapse>

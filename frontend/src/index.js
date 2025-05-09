@@ -19,6 +19,8 @@ import Profile from './views/Profile.jsx';
 import { Provider } from 'react-redux';
 import store from './store.js';
 import PrivateRoute from './components/PrivateRoute.jsx';
+import AdminRoute from './components/AdminRoute.jsx';
+import OrderList from './views/admin/OrderList.jsx';
 import { PayPalScriptProvider } from '@paypal/react-paypal-js';
 
 const router =  createBrowserRouter(
@@ -35,6 +37,9 @@ const router =  createBrowserRouter(
         <Route path='/placeorder' element={<PlaceOrder/>}/>
         <Route path='/order/:id' element={<OrderDetail/>}/>
         <Route path='/profile' element={<Profile/>}/>
+      </Route>
+      <Route path='' element={<AdminRoute/>}>
+       <Route path='/admin/order-list' element={<OrderList/>} />
       </Route>
     </Route>
   )
