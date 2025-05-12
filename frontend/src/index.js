@@ -23,6 +23,8 @@ import AdminRoute from './components/AdminRoute.jsx';
 import OrderList from './views/admin/OrderList.jsx';
 import ProductList from './views/admin/ProductList.jsx';
 import ProductEdit from './views/admin/ProductEdit.jsx';
+import UserList from './views/admin/UserList.jsx';
+import UserEdit from './views/admin/UserEdit.jsx';
 import { PayPalScriptProvider } from '@paypal/react-paypal-js';
 
 const router =  createBrowserRouter(
@@ -43,7 +45,9 @@ const router =  createBrowserRouter(
       <Route path='' element={<AdminRoute/>}>
        <Route path='/admin/order-list' element={<OrderList/>} />
        <Route path='/admin/product-list' element={<ProductList/>} />
+       <Route path='/admin/user-list' element={<UserList/>} />
        <Route path='/admin/product/:id/edit' element={<ProductEdit/>} />
+       <Route path='/admin/user/:id/edit' element={<UserEdit/>} />
       </Route>
     </Route>
   )

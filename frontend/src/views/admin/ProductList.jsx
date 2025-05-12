@@ -7,7 +7,7 @@ import Loader from '../../components/Loader';
 import { toast } from 'react-toastify';
 import { MdOutlineAddCircleOutline } from "react-icons/md";
 
-const ProductList = () => {
+const UserList = () => {
   const { data: products, isLoading, error, refetch } = useGetProductsQuery();
 
   const [createNewProduct, { isLoading: loadingCreate }] = useCreateNewProductMutation();
@@ -92,4 +92,4 @@ const ProductList = () => {
   )
 }
 
-export default ProductList;
+export default UserList;
