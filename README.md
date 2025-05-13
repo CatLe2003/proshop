@@ -1,10 +1,11 @@
-# ProShop eCommerce Platform (v2)
+# ProShop eCommerce Platform 
 
 **Full-stack eCommerce web application built with the MERN stack and Redux Toolkit.**
 
 ## 🚀 Overview
 
-ProShop is a complete eCommerce platform that includes user authentication, product management, cart functionality, and integrated payment processing using PayPal and credit cards. This is version 2.0 of the app, updated to use Redux Toolkit for state management. It also includes an admin dashboard for managing users, products, and orders.
+ProShop is a complete eCommerce platform that includes user authentication, product management, cart functionality, and integrated payment processing using PayPal and credit cards. The app uses Redux Toolkit for state management. It also includes an admin dashboard for managing users, products, and orders.
+- Link Deployment: https://proshop-fang.onrender.com/
 
 ## 🔑 Key Features
 
@@ -16,6 +17,17 @@ ProShop is a complete eCommerce platform that includes user authentication, prod
 - RESTful API integration between frontend and backend
 - MongoDB data seeding for users and products
 - Secure backend architecture with role-based access control
+
+## Login Account and PayPal
+- Admin
+Email: admin@email.com
+Password: 123456
+- User:
+Email: catle@gmail.com
+Password: 123456
+- PayPal:
+Email: sb-c8rk741685166@personal.example.com
+Password: :/Q'O"6v
 
 ## 🛠 Tech Stack
 
@@ -48,4 +60,3 @@ ProShop is a complete eCommerce platform that includes user authentication, prod
 
 ### Environment Variables
 - Contact me to get .env file: songcatlengo.work@gmail.com
-
