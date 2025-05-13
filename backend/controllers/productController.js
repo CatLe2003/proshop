@@ -7,10 +7,14 @@ import Product from '../models/productModel.js';
 const getProducts = asyncHandler (async (req,res) => {
     const pageSize = 2;
     const page = Number(req.query.pageNumber) || 1;
-    const count = await Product.countDocuments();
+    
+    const keyword = req.query.keyword 
+    ? { name: { $regex: req.query.keyword, $options: 'i' } }
+    : { };
 
+    const count = await Product.countDocuments({...keyword});
     // Limit the number of product in a page, and skip the previous page 
-    const products = await Product.find({})
+    const products = await Product.find({...keyword})
       .limit(pageSize)
       .skip(pageSize * (page -1));
 
