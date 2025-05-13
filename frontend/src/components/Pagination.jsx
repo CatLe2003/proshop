@@ -2,10 +2,10 @@ import { Pagination } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { useSelector } from "react-redux";
 
-const Paging = ({ pages, page, isAdmin = false }) => {
+const Paging = ({ pages, page, isAdmin = false, keyword = '' }) => {
   const { userInfo } = useSelector((state) => state.auth);
   isAdmin = userInfo.isAdmin;
-  
+
   return (
     pages > 1 && (
         <div className="d-flex justify-content-center mt-4">
@@ -15,7 +15,9 @@ const Paging = ({ pages, page, isAdmin = false }) => {
                     key={x + 1}
                     to= {
                         !isAdmin 
-                        ? `/page/${x + 1}`
+                        ? keyword 
+                          ? `/search/${keyword}/page/${x + 1}`
+                          : `/page/${x + 1}`
                         : `/admin/product-list/${x + 1}`
                     }
                     >
