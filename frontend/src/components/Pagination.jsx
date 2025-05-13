@@ -4,7 +4,10 @@ import { useSelector } from "react-redux";
 
 const Paging = ({ pages, page, isAdmin = false, keyword = '' }) => {
   const { userInfo } = useSelector((state) => state.auth);
-  isAdmin = userInfo.isAdmin;
+
+  if (userInfo && userInfo.isAdmin) {
+     isAdmin = userInfo.isAdmin;
+  }
 
   return (
     pages > 1 && (
