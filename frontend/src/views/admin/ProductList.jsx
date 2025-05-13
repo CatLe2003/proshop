@@ -6,9 +6,12 @@ import Message from '../../components/Message';
 import Loader from '../../components/Loader';
 import { toast } from 'react-toastify';
 import { MdOutlineAddCircleOutline } from "react-icons/md";
+import { useParams } from 'react-router-dom';
+import Paging from '../../components/Pagination';
 
 const UserList = () => {
-  const { data: products, isLoading, error, refetch } = useGetProductsQuery();
+  const { pageNumber } = useParams();
+  const { data, isLoading, error, refetch } = useGetProductsQuery({ pageNumber });
 
   const [createNewProduct, { isLoading: loadingCreate }] = useCreateNewProductMutation();
   const [deleteProduct, { isLoading: loadingDelete }] = useDeleteProductMutation();
@@ -50,43 +53,49 @@ const UserList = () => {
       { isLoading ? <Loader/> 
           : error ? <Message variant='danger'>{ error }</Message>
           :(
-        <Table striped hover responsive className='table-sm'>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Price</th>
-                    <th>Category</th>
-                    <th>Brand</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                { products.map((product) => (
-                    <tr key={product._id}>
-                        <td>{product._id}</td>
-                        <td>{product.name}</td>
-                        <td>${product.price}</td>
-                        <td>{product.category}</td>
-                        <td>{product.brand}</td>
-                        <td>
-                          <LinkContainer to={`/admin/product/${product._id}/edit`}>
-                            <Button variant='light' className='btn-sm m-2'>
-                                <FaEdit /> Edit
+        <>
+          <Table striped hover responsive className='table-sm'>
+              <thead>
+                  <tr>
+                      <th>ID</th>
+                      <th>Name</th>
+                      <th>Price</th>
+                      <th>Category</th>
+                      <th>Brand</th>
+                      <th>Actions</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  { data.products.map((product) => (
+                      <tr key={product._id}>
+                          <td>{product._id}</td>
+                          <td>{product.name}</td>
+                          <td>${product.price}</td>
+                          <td>{product.category}</td>
+                          <td>{product.brand}</td>
+                          <td>
+                            <LinkContainer to={`/admin/product/${product._id}/edit`}>
+                              <Button variant='light' className='btn-sm m-2'>
+                                  <FaEdit /> Edit
+                              </Button>
+                            </LinkContainer>
+                            <Button 
+                              variant='danger' 
+                              onClick={() => deleteHandler(product._id)}
+                              className='btn-sm text-white'
+                            >
+                                <FaTrash style={{ color: 'white' }} /> Delete
                             </Button>
-                          </LinkContainer>
-                          <Button 
-                            variant='danger' 
-                            onClick={() => deleteHandler(product._id)}
-                            className='btn-sm text-white'
-                          >
-                              <FaTrash style={{ color: 'white' }} /> Delete
-                          </Button>
-                        </td>
-                    </tr>
-                ))}
-            </tbody>
-        </Table>
+                          </td>
+                      </tr>
+                  ))}
+              </tbody>
+          </Table>
+          <Paging 
+            pages={data.pages}
+            page={data.page}
+          />
+        </>
       )}
     </>
   )
