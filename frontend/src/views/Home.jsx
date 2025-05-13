@@ -7,6 +7,7 @@ import { useParams } from 'react-router-dom';
 import Paging from '../components/Pagination';
 import SearchBox from '../components/SearchBox';
 import { Link } from 'react-router-dom';
+import ProductCarousel from '../components/ProductCarousel';
 
 const Home = () => {
   const { pageNumber, keyword } = useParams();
@@ -21,6 +22,9 @@ const Home = () => {
     ) : 
     (
       <>
+        { !keyword && (
+          <ProductCarousel/>
+        )}
         <Row>
           <Col>
             <h1>Latest Product</h1>
